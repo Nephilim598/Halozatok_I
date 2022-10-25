@@ -1,0 +1,31 @@
+username: admin
+password cisco12345
+egyeb password: cisco
+
+
+Petrik: 
+G0/0 - 192.168.2.1
+G0/1 - 192.168.1.1
+
+
+
+IT Host:
+192.168.1.4
+
+Reception Host:
+192.168.2.4
+
+Operator Host:
+192.168.2.3
+
+TFTP Server:
+192.168.1.2
+
+
+
+
+
+
+
+
+
