@@ -1,0 +1,261 @@
+
+portbiztonság / jelszavakhoz szoftver ajánlat  /  wifihez majd a vistumbler
+
+
+#01
+
+Néhány dolog amire figyelni kell a jelszavak beállításánál:
+
+- Mint hogy ne használjuk ugyan azt a jelszót több helyen
+Ennek egyszerű oka van 
+- Ha valamelyik fiókodat feltörik a többit is megtalálják
+akár az e-mailed, neved vagy nickneved alapján.
+
+Különböző jelszavak használatával csökkenthetjük a károkat és nagyobb biztonságban vagyunk.
+Ezt még fokozhatjuk a kétlépcsős azonosítás aktiválásával.
+Ami azt jelenti hogy vagy SMS-ben kapunk egy kódot vagy egy beállított hitelesítő alkalmazásból kell megadnunk egyet.
+
+
+
+
+#01.1
+
+
+Ne tároljuk a jelszavainkat szöveges fájlban és egyéb titkosítatlan dokumentumban 
+és ne mentsük el böngészőben sem a jelszavainkat.
+
+Mert az ilyen gyenge fájlokat ellophatják, megsérülhet, 
+törlődik vagy visszakeresik a böngésző gyorsítótárában.
+
+Képzeljük el hogy valaki évek óta 1 jelszót használ és megszerzik,
+nem szeretném látni ahogy közel 200 vagy még több jelszó megváltoztatására törekszik.
+
+
+#01.2
+
+Ne használjuk a szolgáltatónk alapértelmezett jelszavát
+Mert ezek a jelszavak egyszerűek, ebből következik hogy könnyen feltörhetőek.
+
+Azok az eszközök amiket a szolgáltató ad, mint a router gyárilag beállított jelszóval kapjuk meg.
+
+
+
+#01.3
+
+
+Ne használjunk az alábbiakhoz hasonló jelszavakat.
+Szerintem a fenti jelszavak magától értetődőek.
+
+De itt van példának Zoli jelszava is.
+
+
+
+#01.4
+
+
+Ne használjunk szótárban megtalálható kifejezéseket
+A szótári támadás az összes karakterlánc kipróbálásán alapul,
+egyeztetett felsorolás azaz szójegyzék alapján.
+
+A szótári támadások gyakran sikeresek,
+mert sokan használják őket rövid jelszónak, 
+Ezek egyszerű szavakat szoktak tartalmazni 
+amelyeket számjegy vagy írásjellel egészítenek ki.
+
+Itt van példának a tanárnő jelszava.
+
+
+
+#01.5
+
+Ne használjunk olyan jelszavakat, 
+amelyek tartalmazzák születési dátumunkat vagy
+más rólunk online könnyen elérhető információt!
+
+
+Mert a személyes adataink felkutatása az interneten az
+ami a számítógépes bűnözők számára teret ad.
+Még ha az adatvédelmi beállításaid a maximumra vannak tolva,
+nincs olyan hogy 100%-os biztonság mert mindent meglehet kerülni.
+
+
+
+#01.6
+
+Ne használjuk ugyanazt a jelszót hosszú ideig! 
+
+Mert a jelszavak akárcsak a pacal a hűtőben... van lejárati ideje.
+Minéltöbb ideig használunk egy jelszót a támadónak úgy lesz egyre több lehetősége  a jelszó megtippelésre, kitalálására.
+
+
+#01.7
+
+Ne használjuk kétszer ugyan azt a jelszót!
+
+Mert ez az egyik legnagyobb hiba,
+amit mindannyian elkövetünk amikor jelszókezelésről van szó.
+
+Ha ugyan azt a jelszót használjuk és ezt megszerzik akkor a kiberbűnözők
+több fiókunkhoz is hozzáférést szerezhetnek ami által több adatot lophatnak el és több kárt okozhatnak.
+
+Képzeld el hogy feltörik az online bankszámlád jelszavát és ezt a saját céljaira használja fel.
+Eltudod képzelni annak a hatását ha támadás éri a személyes pénzügyeidet, vagy szakmai és magánéletedet?
+
+
+
+
+#2
+Bizonyos biztonsági megoldásokkal megvédhetjük magunkat a kémprogrramokkal (Spyware) szemben
+
+#(SPYWARE ejtsd: szpájver)#
+
+De, mi is pontosan a Spyware?
+
+A spyware feltelepülése általában észrevétlenül történik, 
+a felhasználó figyelmetlenségének és a 
+számítógép böngészőprogramjának biztonsági hiányosságainak kiaknázásával.
+- Felugró ablakokat nyit meg
+- Rosszindulatú webhelyekre irányít át
+- figyeli a böngészési munkameneteket
+
+Van itt néhány figyelmeztető jel:
+- lassú a  számítógép programok megnyitásakor vagy futtatásakor
+- felugró ablakok/alkalmazások jelennek meg
+- új eszköztár jelenik meg a böngészőben
+- vagy a webböngésző kezdőlapja módosult
+- a keresőmotor megváltozott 
+- váratlanul hibaüzenetek jelennek meg
+
+
+Van néhány program ami képes eltávolítani a kémprogramokat a rendszerről
+ilyen a Malwarebytes, Spybot Search and Destroy, Lavasoft-tól vagy kitudja Harry Pottertől az Ad-Aware 
+
+
+Ugyanakkor tehetünk biztonsági intézkedéseket hogy ne fertőződjünk meg, mint hogy:
+- Ne kattintsunk semmilyen gyanús linkre vagy felugró ablakra
+- Ne válaszoljunk váratlan felugró kérdésekre
+- És legyünk óvatosak, amikor ingyenes alkalmazásokat töltünk le
+
+
+
+
+
+#2.1    18 alapvető kiberbiztonsági kifejezés, amit TUDNOD KELL!
+
+Kémprogram-elhárító szoftver (Antispyware)
+
+A kémprogram-elhárító szoftverek a kémprogram-kísérletek észlelésére, 
+blokkolására és/vagy eltávolítására szolgálnak.
+A spyware olyan szoftver amely az engedélyünk nélkül igyekszik begyűjteni a személyes adatainkat.
+A begyűjtött információkat beleegyezés nélkül továbbítja egy harmadik félnek.
+
+
+A kémprogramoknak 4 fő típusa van:
+- rendszerfigyelők
+- trójai programok
+- reklámprogramok
+- és a nyomkövető sütik
+
+A kémprogramokat főként a felhasználó online mozgásának nyomon követésére, 
+valamint bosszantó és veszélyes pop-up hirdetések megjelenítésére használják.
+
+
+#2.2
+
+Víruskereső szoftver
+
+A víruskereső szoftver (AntiVírus), olyan számítógépes szoftver,
+amelyet a rosszindulatú szoftverek (MalWare) megelőzésére, észlelésére és eltávolítására használnak.
+
+Az Antivírus védi számítógépet számos fenyegetéstől, például: 
+- zsarolóprogramoktól
+- rootkitektől
+- trójai programoktól
+- kémprogramoktól
+- adathalász támadásoktól
+- vagy botnetektől.
+
+
+A víruskereső módszer a fertőzések után kutatva nem igazán képes megbirkózni a jelenlegi fenyegetésekkel.
+A kiberbűnözők okosak. A támadásaik pedig ördögiek, ezért ne feledjük, hogy a vírusvédelem nem elég,
+és valamivel többre van szükség a biztonságunk megőrzéséhez.
+Ez természetesen nem azt jelent, hogy nincs szükség víruskeresőre.
+
+#     Ha Zsuzsi alszik        #
+# - Zsuzsi volt/ Zsuzsi tudja / mondd hogy nem értesz egyet (Mivel és Miért) #
+
+#2.3
+
+
+Kibertámadás (Cyber-Attack)
+
+Bármely rosszindulatú tevékenység számítógépes támadásnak minősül,
+amit számítógépes bűnözők arra használnak, 
+hogy rosszindulatú kódot telepítsenek az rendszerünkbe azzal a céllal,
+hogy ellopják, módosítsák, megsemmisítsék vagy kihasználják a műveletből származó előnyöket.
+
+Kibertámadássorán célba vehetünk embereket és eszközöket egyaránt. BÁRHOL. BÁRMIKOR. 
+- Egyéni felhasználók,
+- számítógépes hálózatok,
+- információs rendszerek, 
+- minden típusú és méretű informatikai infrastruktúra – SENKI sincs biztonságban! 
+
+
+
+#2.4
+
+Drive-by download
+
+Az autós letöltés két dologra utalhat:
+
+a. Letöltés, amelyet engedélyeztünk, de a következmények megértése nélkül 
+Például: olyan letöltések, amelyek ismeretlen vagy hamisított futtatható programot,
+ActiveX-komponenst vagy Java kisalkalmazást telepítenek.
+
+b. Vírus vagy rosszindulatú szoftver nem szándékos letöltése számítógépre vagy mobileszközre. 
+
+hogyan lehet megfertőződni:
+például: amikor meglátogatunk egy webhelyet, e-mailt olvasunk, vagy ha egy megtévesztő felugró ablakra kattintunk.
+
+Az ilyen típusú rosszindulatú letöltések általában olyan böngészőt, 
+alkalmazást vagy operációs rendszert használnak ki, ami elavult, 
+és olyan biztonsági hibával rendelkezik, amelyet nem sikerült megoldani vagy kijavítani.
+Ezért nagyon fontos, hogy szoftvereinket folyamatosan frissítsük.
+
+
+
+#2.5
+
+Kihasználás (Exploit)
+
+Az exploit egy forráskódban vagy bináris formában terjesztett szoftver vagy parancssorozat, 
+amely rosszindulatú célokra használ egy hibát, vagy sebezhetőséget.
+A Exploitok nem várt viselkedést okozhatnak a számítógép szoftverében, vagy a hardver működésében. 
+Ezalatt a rendszergazdai jogok megszerzését vagy jogosultságnövelést (privilege escalation) vagy szolgáltatásmegtagadást érthetünk.
+Payloadnak (töltet) nevezik azt az exploithoz csatolt kódot, amit az a jogosultság megszerzése után lefuttat.
+
+Az egyik módja annak, hogy megvédjük magunkat a visszaélésektől, 
+ha folyamatosan frissítjük a szoftvert, 
+és megteszünk minden biztonsági intézkedést.
+
+
+#2.6
+
+Keylogging
+
+A billentyűnaplózás egy olyan módszer, 
+amellyel a kiberbűnözők rögzítik vagy naplózzák a billentyűzeten leütött billentyűket,
+hogy bizalmas információkat szerezzenek meg.
+
+Természetesen ezt rejtetten teszik, hogy ne tudjuk hogy figyelnek ránk, 
+miközben a szokásos módon beírjuk a jelszavakat, címeket és egyéb titkos adatunkat a billentyűzeten.
+
+A keyloggereket általában arra használják hogy jelszavakat vagy hitelkártyaadatokat szerezzenek.
+Sok Antispyware képes észlelni néhány keyloggert és karanténba helyezni, letiltani vagy törölni őket
+nincs olyan megoldás, amely 100%-ban hatékony lenne az ilyen típusú fenyegetések ellen.
+
+
+
+
+
+
