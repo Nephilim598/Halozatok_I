@@ -1,0 +1,73 @@
+router:
+-idő
+-név
+-banner
+-ip
+-Sikertelen bejelentkezések
+-jelszó/secret
+-telnet/ssh
+-konfig mentése
+
+
+
+
+idő - R1#clock set 
+Sikertelen bejelentkezések - R1(config)#login block-for 100 attempts 15 within 180
+Naplózzuk a sikertelen SSH belépési kísérleteket - R1(config)#login on-failure log
+console naplózás - R1(config)#logging console
+R1(config)# service timestamps log datetime msec
+R1(config)# service timestamps debug datetime msec
+mennyi idő után lépjen ki automatikusan - R1(config-line)#exec-timeout 2 30
+
+
+
+
+
+
+
+
+switch:
+-név
+-jelszó/ secret
+-banner
+-Alapértelmezett átjáró 
+-konfig mentése
+-portbiztonság
+
+
+mennyi idő után lépjen ki automatikusan - R1(config-line)#exec-timeout 2 30
+console naplózás - R1(config)#logging console
+R1(config)# service timestamps log datetime msec
+R1(config)# service timestamps debug datetime msec
+Kábel felismerés - S1(config-if)# mdix auto
+
+
+Portbiztonság beállítása
+
+A portok alapértelmezetten nyitottak, védelem nélkül. A biztonság érdekében érdemes néhány biztonsági beállítást megadni. Az úgynevezett portbiztonság a switchport parancson alapszik, amit egy interfészen kell beállítani.
+
+S1>en
+S1#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+S1(config)#int f0/1
+S1(config-if)#switchport mode access
+S1(config-if)#switchport port-security
+S1(config-if)#
+S1(config-if)#switchport port-security maximum 2
+S1(config-if)#switchport port-security mac-address sticky
+S1(config-if)#switchport port-security violation protect / vagy restrict 
+
+# ide még a switchport mode access/switchport access vlan 99  és a felesek lekapcsolása
+
+Telnet beállítás
+
+S1(config)#line vty 0 4
+S1(config-line)#pass
+S1(config-line)#password titok
+S1(config-line)#login
+S1(config-line)#end
+
+
+Alapértelmezett átjáró beállítása:
+S1(config)#ip default-gateway 192.168.10.1
+
