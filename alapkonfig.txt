@@ -1,3 +1,23 @@
+IPv6:
+IPv6 forgalomirányítóvá tehetünk az ## ipv6 unicast-routing ## globális konfigurációs parancs kiadásával.
+IPv6 cím kiadás Példa: Router(config-if)#ipv6 address 2001:db8:acad:1::1/64
+SLAAC használatakor az eszköz a helyi forgalomirányító ICMPv6 forgalomirányító hirdetés (Router Advertisement, RA) üzeneteiből szerzi be a szükséges információkat.
+Az IPv6 eszköznek viszont nem kell kivárnia a következő RA üzenetet. Küldhet egy forgalomirányító keresés (Router Solicitation, RS) üzenetet a routernek a minden router (multicast) csoportcímre. Ha egy IPv6 forgalomirányító RS üzenetet kap, azonnal válaszolni fog egy forgalomirányító hirdetéssel. 
+Az RA üzenet arról is tájékoztatja az IPv6 eszközt, hogy a címzési információt milyen módon szerezheti be. 
+Példa: 
+- Csak SLAAC - Az eszköznek az RA üzenetben lévő előtagot, előtag-hosszot és átjáró címet kell használnia.
+- SLAAC és DHCPv6 együtt (Dhcp egyeb infokat ad mint a DNS)
+- Csak DHCPv6
+A forgalomirányítók ICMPv6 RA üzeneteinek forrás IPv6-címe a link-local címük. Az SLAAC-t használó eszközök a router link-local címét használják alapértelmezett átjárónak.
+Link Local cím megadása - Router(config-if)#ipv6 address link-local-address link-local
+konfig megtekintése 
+- show ipv6 interface brief
+- show interface
+
+
+
+
+
 router:
 -idő
 -név
