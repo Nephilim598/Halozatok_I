@@ -39,6 +39,43 @@ R1(config)# service timestamps log datetime msec
 R1(config)# service timestamps debug datetime msec
 mennyi idő után lépjen ki automatikusan - R1(config-line)#exec-timeout 2 30
 
+példa:
+
+enable
+clock set 23:10:00 21 nov 2022
+conf t
+hostname R1
+banner motd #alapkonfig#
+login block-for 100 attempts 15 within 180
+logging console
+service timestamps log datetime msec
+service timestamps debug datetime msec
+line vty 0 15
+password cisco
+login
+exec-timeout 2 30
+exit
+line console 0
+password cisco
+login
+exec-timeout 2 30
+exit
+line aux 0
+password cisco
+login
+exec-timeout 2 30
+exit
+enable password secret cisco
+service password-encryption 
+interface g0/0
+ip address 192.168.1.1 255.255.255.0
+no shutdown
+exit
+do wr
+
+az adott gépnek kell ip amiről telnetezünk a routerrel: pl: 192.168.1.2
+
+
 
 
 
@@ -68,7 +105,6 @@ A portok alapértelmezetten nyitottak, védelem nélkül. A biztonság érdekéb
 
 S1>en
 S1#conf t
-Enter configuration commands, one per line.  End with CNTL/Z.
 S1(config)#int f0/1
 S1(config-if)#switchport mode access
 S1(config-if)#switchport port-security
@@ -89,5 +125,56 @@ S1(config-line)#end
 
 
 Alapértelmezett átjáró beállítása:
-S1(config)#ip default-gateway 192.168.10.1
+S1(config)#ip default-gateway 192.168.1.1
+
+
+Példa:
+
+enable
+clock set 23:10:00 21 nov 2022
+conf t
+hostname Sw1
+banner motd #alapkonfig#
+logging console
+service timestamps log datetime msec
+service timestamps debug datetime msec
+line vty 0 15
+password cisco
+login
+exec-timeout 2 30
+exit
+line console 0
+password cisco
+login
+exec-timeout 2 30
+exit
+enable password secret cisco
+service password-encryption 
+interface vlan 1
+ip address 192.168.1.2 255.255.255.0
+no shutdown
+exit
+int f0/1
+switchport mode access
+switchport port-security
+switchport port-security maximum 2
+switchport port-security mac-address sticky
+switchport port-security violation restrict 
+int range f0/2-24, g0/1-2
+switchport mode access
+switchport access vlan 99
+switchport port-security
+switchport port-security maximum 2
+switchport port-security mac-address sticky
+switchport port-security violation restrict 
+do wr
+
+
+
+
+
+
+
+
+
 
