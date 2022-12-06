@@ -14,7 +14,15 @@ konfig megtekintése
 - show ipv6 interface brief
 - show interface
 
-
+ipv6:
+ena
+conf t
+ipv6 unicast-routing
+int g0/0
+ipv6 enable
+ipv6 address A::1/64
+ipv6 add FE80::1 link-local
+no sh
 
 
 
@@ -28,6 +36,15 @@ router:
 -telnet/ssh
 -konfig mentése
 
+ssh:
+ip domain-name CTS.hu
+crypto key generate rsa
+user admin secret enablepass
+line vty 0 15
+login local
+transport input ssh
+exit
+ip ssh version 2
 
 
 
