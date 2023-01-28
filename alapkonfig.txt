@@ -1,190 +1,239 @@
-IPv6:
-IPv6 forgalomirányítóvá tehetünk az ## ipv6 unicast-routing ## globális konfigurációs parancs kiadásával.
-IPv6 cím kiadás Példa: Router(config-if)#ipv6 address 2001:db8:acad:1::1/64
-SLAAC használatakor az eszköz a helyi forgalomirányító ICMPv6 forgalomirányító hirdetés (Router Advertisement, RA) üzeneteiből szerzi be a szükséges információkat.
-Az IPv6 eszköznek viszont nem kell kivárnia a következő RA üzenetet. Küldhet egy forgalomirányító keresés (Router Solicitation, RS) üzenetet a routernek a minden router (multicast) csoportcímre. Ha egy IPv6 forgalomirányító RS üzenetet kap, azonnal válaszolni fog egy forgalomirányító hirdetéssel. 
-Az RA üzenet arról is tájékoztatja az IPv6 eszközt, hogy a címzési információt milyen módon szerezheti be. 
-Példa: 
-- Csak SLAAC - Az eszköznek az RA üzenetben lévő előtagot, előtag-hosszot és átjáró címet kell használnia.
-- SLAAC és DHCPv6 együtt (Dhcp egyeb infokat ad mint a DNS)
-- Csak DHCPv6
-A forgalomirányítók ICMPv6 RA üzeneteinek forrás IPv6-címe a link-local címük. Az SLAAC-t használó eszközök a router link-local címét használják alapértelmezett átjárónak.
-Link Local cím megadása - Router(config-if)#ipv6 address link-local-address link-local
-konfig megtekintése 
-- show ipv6 interface brief
-- show interface
+ROUTER:
 
-ipv6:
-ena
-conf t
-ipv6 unicast-routing
-int g0/0
-ipv6 enable
-ipv6 address A::1/64
-ipv6 add FE80::1 link-local
-no sh
+router alapbeállításai:
+	-idő
+	-név
+	-banner
+	-ip
+	-jelszó/secret
+	-telnet/ssh
+	-line-oknak pass
+	-konfig mentése
 
 
 
-router:
--idő
--név
--banner
--ip
--Sikertelen bejelentkezések
--jelszó/secret
--telnet/ssh
--konfig mentése
 
-ssh:
-ip domain-name CTS.hu
-crypto key generate rsa
-user admin secret enablepass
-line vty 0 15
-login local
-transport input ssh
-exit
-ip ssh version 2
+ipv6 aktiválás:
+	ena
+	conf t
+	ipv6 unicast-routing
+	int g0/0
+	ipv6 enable
+	ipv6 address A::1/64
+	ipv6 add FE80::1 link-local
+	no sh
 
 
 
-idő - R1#clock set 
-Sikertelen bejelentkezések - R1(config)#login block-for 100 attempts 15 within 180
-Naplózzuk a sikertelen SSH belépési kísérleteket - R1(config)#login on-failure log
-console naplózás - R1(config)#logging console
-R1(config)# service timestamps log datetime msec
-R1(config)# service timestamps debug datetime msec
-mennyi idő után lépjen ki automatikusan - R1(config-line)#exec-timeout 2 30
 
-példa:
 
-enable
-clock set 23:10:00 21 nov 2022
-conf t
-hostname R1
-banner motd #alapkonfig#
-login block-for 100 attempts 15 within 180
-logging console
-service timestamps log datetime msec
-service timestamps debug datetime msec
-line vty 0 15
-password cisco
-login
-exec-timeout 2 30
-exit
-line console 0
-password cisco
-login
-exec-timeout 2 30
-exit
-line aux 0
-password cisco
-login
-exec-timeout 2 30
-exit
-enable password secret cisco
-service password-encryption 
-interface g0/0
-ip address 192.168.1.1 255.255.255.0
-no shutdown
-exit
-do wr
-
-az adott gépnek kell ip amiről telnetezünk a routerrel: pl: 192.168.1.2
+routing ipv4:
+	show ip route
+	show ip route static
+	show ip route "hálózat"
+	Router(config)# ip route hálózati-cím alhálózati-maszk { IP-cím | interfész-típus interfész-szám [ IP-cím ]} [ távolság ] [ name név ] [ permanent ] [ tag címke ] 
+	alapértelmezett útvonal - ip route 0.0.0.0 0.0.0.0 { IP-cím | kimenő-interfész }
 
 
 
 
 
 
+routing ipv6:
+	show ipv6 route
+	show ipv6 route static
+	show ipv6 route "hálózat"
+	Router(config)# ipv6 route ipv6-előtag/előtag-hossz { ipv6-cím | kimenő-interfész }
+	alapértelmezett útvonal - ipv6 route ::/0 { ipv6-cím | kimenő-interfész }
 
 
 
-switch:
--név
--jelszó/ secret
--banner
--Alapértelmezett átjáró 
--konfig mentése
--portbiztonság
 
 
-mennyi idő után lépjen ki automatikusan - R1(config-line)#exec-timeout 2 30
-console naplózás - R1(config)#logging console
-R1(config)# service timestamps log datetime msec
-R1(config)# service timestamps debug datetime msec
-Kábel felismerés - S1(config-if)# mdix auto
+
+Ssh:
+	ip domain-name CTS.hu
+	crypto key generate rsa
+	user admin secret enablepass
+	line vty 0 15
+	login local
+	transport input ssh
+	exit
+	ip ssh version 2
 
 
-Portbiztonság beállítása
-
-A portok alapértelmezetten nyitottak, védelem nélkül. A biztonság érdekében érdemes néhány biztonsági beállítást megadni. Az úgynevezett portbiztonság a switchport parancson alapszik, amit egy interfészen kell beállítani.
-
-S1>en
-S1#conf t
-S1(config)#int f0/1
-S1(config-if)#switchport mode access
-S1(config-if)#switchport port-security
-S1(config-if)#
-S1(config-if)#switchport port-security maximum 2
-S1(config-if)#switchport port-security mac-address sticky
-S1(config-if)#switchport port-security violation protect / vagy restrict 
-
-# ide még a switchport mode access/switchport access vlan 99  és a felesek lekapcsolása
-
-Telnet beállítás
-
-S1(config)#line vty 0 4
-S1(config-line)#pass
-S1(config-line)#password titok
-S1(config-line)#login
-S1(config-line)#end
 
 
-Alapértelmezett átjáró beállítása:
-S1(config)#ip default-gateway 192.168.1.1
+
+Telnet beállítása:
+	R1(config)#line vty 0 15
+	R1(config-line)#password titok
+	R1(config-line)#login
+	R1(config-line)#end
+
+
+
+
+
+Idő:
+	clock set "H:M:S" "D.M.Y"
+
+
+
+
+
+
+Naplózás/bejelentkezes/kiléptetés:
+	Naplózzuk a sikertelen SSH belépési kísérleteket - R1(config)#login on-failure log
+	Console naplózás - R1(config)#logging console
+	Idő beállítása naplózáshoz - R1(config)# service timestamps log datetime msec
+	Idő beállítása naplózáshoz - R1(config)# service timestamps debug datetime msec
+	
+	Mennyi idő után lépjen ki automatikusan (pl:console kapcsolatból) - R1(config-line)#exec-timeout 2 30
+	Sikertelen bejelentkezések - R1(config)#login block-for 100 attempts 15 within 180
+	
+
+
 
 
 Példa:
+	enable
+	clock set 23:10:00 21 nov 2022
+	conf t
+	hostname R1
+	banner motd #alapkonfig#
+	login block-for 100 attempts 15 within 180
+	logging console
+	service timestamps log datetime msec
+	service timestamps debug datetime msec
+	line vty 0 15
+	password cisco
+	login
+	exec-timeout 2 30
+	exit
+	line console 0
+	password cisco
+	login
+	exec-timeout 2 30
+	exit
+	line aux 0
+	password cisco
+	login
+	exec-timeout 2 30
+	exit
+	enable password secret cisco
+	service password-encryption 
+	interface g0/0
+	ip address 192.168.1.1 255.255.255.0
+	no shutdown
+	exit
+	do wr
 
-enable
-clock set 23:10:00 21 nov 2022
-conf t
-hostname Sw1
-banner motd #alapkonfig#
-logging console
-service timestamps log datetime msec
-service timestamps debug datetime msec
-line vty 0 15
-password cisco
-login
-exec-timeout 2 30
-exit
-line console 0
-password cisco
-login
-exec-timeout 2 30
-exit
-enable password secret cisco
-service password-encryption 
-interface vlan 1
-ip address 192.168.1.2 255.255.255.0
-no shutdown
-exit
-int f0/1
-switchport mode access
-switchport port-security
-switchport port-security maximum 2
-switchport port-security mac-address sticky
-switchport port-security violation restrict 
-int range f0/2-24, g0/1-2
-switchport mode access
-switchport access vlan 99
-switchport port-security
-switchport port-security maximum 2
-switchport port-security mac-address sticky
-switchport port-security violation restrict 
-do wr
+
+
+
+
+
+
+SWITCH:
+
+
+Switch alapbeállításai:
+	-név
+	-jelszó/ secret
+	-line-oknak pass
+	-banner
+	-Alapértelmezett átjáró 
+	-konfig mentése
+
+
+
+
+
+Naplózás:
+	Mint a routernél.
+
+
+
+
+
+
+Kábel felismerés:
+	S1(config-if)# mdix auto
+
+
+
+
+
+Portbiztonság beállítása:
+	S1(config)#int f0/1
+	S1(config-if)#switchport mode access
+	S1(config-if)#switchport access vlan 99
+	S1(config-if)#switchport port-security
+	S1(config-if)#switchport port-security maximum 2
+	S1(config-if)#switchport port-security mac-address sticky
+	S1(config-if)#switchport port-security violation protect / vagy restrict 
+ 	"felesleges portok lekapcsolása"
+
+
+
+
+
+Telnet beállítása:
+	S1(config)#line vty 0 4
+	S1(config-line)#password titok
+	S1(config-line)#login
+	S1(config-line)#end
+
+
+
+
+
+Alapértelmezett átjáró beállítása:
+	S1(config)#ip default-gateway "IP"
+
+
+
+
+Példa:
+	enable
+	clock set 23:10:00 21 nov 2022
+	conf t
+	hostname Sw1
+	banner motd #alapkonfig#
+	logging console
+	service timestamps log datetime msec
+	service timestamps debug datetime msec
+	line vty 0 15
+	password cisco
+	login
+	exec-timeout 2 30
+	exit
+	line console 0
+	password cisco
+	login
+	exec-timeout 2 30
+	exit
+	enable password secret cisco
+	service password-encryption 
+	interface vlan 1
+	ip address 192.168.1.2 255.255.255.0
+	no shutdown
+	exit
+	int f0/1
+	switchport mode access
+	switchport port-security
+	switchport port-security maximum 2
+	switchport port-security mac-address sticky
+	switchport port-security violation restrict 
+	int range f0/2-24, g0/1-2
+	switchport mode access
+	switchport access vlan 99
+	switchport port-security
+	switchport port-security maximum 2
+	switchport port-security mac-address sticky
+	switchport port-security violation restrict 
+	do wr
 
 
 
