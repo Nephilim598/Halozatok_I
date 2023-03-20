@@ -1,0 +1,605 @@
+kell még:
+- routing
+- szerverek cuccai
+- teszt pc adatai
+
+-----------------------------------------------------------------------------------
+Feladat:
+-A RT1 forgalomirányítón állítsa be, hogy a konfigurációban megjelenő eszköznév a RT1 legyen!
+-A RT1 forgalomirányító DHCP szerverfunkciókat lát el mind a két hálózatban. A DHCP szervernél a következő beállításokat kell elvégeznie:  
+	a.	A rendelkezésre álló címtartományokból az utolsó öt-öt címet ne ossza ki a kliensek számára! 
+	b.	A kliensek kapják meg az alapértelmezett átjáró címét is! 
+	c.	A DNS szerver címe 8.8.8.8legyen!
+
+RT1:
+
+	enable
+	clock set 23:00:00 19 mar 2023
+	conf t
+	hostname RT1
+	banner motd #Belepes csak meghatalmazassal!#
+	login block-for 100 attempts 15 within 180
+	logging console
+	service timestamps log datetime msec
+	service timestamps debug datetime msec
+	line vty 0 15
+	password cisco
+	login
+	exit
+	line console 0
+	password cisco
+	login
+	exit
+	line aux 0
+	password cisco
+	login
+	exit
+	enable secret cisco
+	service password-encryption
+	interface s0/0/0
+	ip address 19.168.0.185 255.255.255.252
+	no shutdown
+	exit
+	interface s0/0/1
+	ip address 19.168.0.182	255.255.255.252
+	no shutdown
+	exit
+	interface g0/1
+	ip address 192.168.0.182 255.255.255.248
+	no shutdown
+	exit
+	interface g0/0
+	ip address 192.168.0.158 255.255.255.224
+	no shutdown
+	exit
+	ip dhcp excluded-address 192.168.0.153 192.168.0.158
+	ip dhcp pool Lan9S
+	network 192.168.0.128 255.255.255.224
+	default-router 192.168.0.158
+	dns-server 8.8.8.8
+	exit
+	ip dhcp excluded-address 192.168.0.177 192.168.0.182 
+	ip dhcp pool Lan8P
+	network 192.168.0.176 255.255.255.248
+	default-router 192.168.0.182
+	dns-server 8.8.8.8
+	exit
+	do wr
+
+
+--------------------------------------------------------------------
+Feladat:
+- Vlanok létrehozása
+
+Vlan 10 / neve 111 / 
+Vlan 20 / neve 222 / 
+
+
+SZ-RT:
+
+
+
+	enable
+	clock set 23:00:00 19 mar 2023
+	conf t
+	hostname SZRT
+	banner motd #Belepes csak meghatalmazassal!#
+	login block-for 100 attempts 15 within 180
+	logging console
+	service timestamps log datetime msec
+	service timestamps debug datetime msec
+	line vty 0 15
+	password cisco
+	login
+	exit
+	line console 0
+	password cisco
+	login
+	exit
+	line aux 0
+	password cisco
+	login
+	exit
+	enable secret cisco
+	service password-encryption
+
+	interface s0/0/0
+	ip address 19.168.0.177	255.255.255.252
+	no shutdown
+	exit
+	interface s0/0/1
+	ip address 19.168.0.186	255.255.255.252
+	no shutdown
+	exit
+	interface g0/1
+	ip address 192.168.0.62	255.255.255.192
+	no shutdown
+	exit
+	interface g0/0
+	ip address 192.168.0.126 255.255.255.192
+	no shutdown
+	exit
+	interface s0/1/1
+	ip address 192.168.0.193 255.255.255.252
+	no shutdown
+	exit
+
+	ip dhcp excluded-address 192.168.0.57 192.168.0.62
+	ip dhcp pool L111
+	network 192.168.0.0 255.255.255.192
+	default-router 192.168.0.62
+	dns-server 8.8.8.8
+	exit
+	ip dhcp excluded-address 192.168.0.121 192.168.0.126
+	ip dhcp pool L222
+	network 192.168.0.64 255.255.255.192
+	default-router 192.168.0.126
+	dns-server 8.8.8.8
+	exit
+	do wr
+
+
+
+---------------------------------------------------------------------
+
+
+
+
+T-RT:
+
+
+	enable
+	clock set 23:00:00 19 mar 2023
+	conf t
+	hostname TRT
+	banner motd #Belepes csak meghatalmazassal!#
+	login block-for 100 attempts 15 within 180
+	logging console
+	service timestamps log datetime msec
+	service timestamps debug datetime msec
+	line vty 0 15
+	password cisco
+	login
+	exit
+	line console 0
+	password cisco
+	login
+	exit
+	line aux 0
+	password cisco
+	login
+	exit
+	enable secret cisco
+	service password-encryption
+
+	interface s0/0/0
+	ip address 19.168.0.181	255.255.255.252
+	no shutdown
+	exit
+	interface s0/0/1
+	ip address 19.168.0.178	255.255.255.252
+	no shutdown
+	exit
+	interface g0/0
+	ip address 8.8.8.14 255.255.255.240
+	no shutdown
+	exit
+	interface g0/1
+	ip address 192.168.0.174 255.255.255.240
+	no shutdown
+	exit
+	
+
+
+
+
+
+
+-------------------------------------------------------------------
+Feladatok:
+- Az SW1 kapcsoló számára felügyeleti célból szintén IP-címet kell beállítani. A kapcsolónak az adott hálózatban kiosztható utolsó előtti IP-címet állítsa be! Állítson be a kapcsolónak megfelelő alapértelmezett átjárót is!
+- Az illetéktelen hozzáférés kivédése érdekében az SW1 kapcsolón a nem használt portokat kapcsolja le!
+- A SW1 forgalomirányítón biztosítani kell a konzol vonal védelmét a cisco1 jelszóval! 
+- A SW1 forgalomirányítón biztosítani kell a távoli – telnet protokollon keresztüli – elérést. A távoli eléréshez használt jelszó cisco2 legyen!
+- A SW1 forgalomirányítónál a privilegizált módot védő jelszó a cisco3 legyen! 
+- A SW1 forgalomirányítón állítsa be, hogy a nap üzenete „Ha belepsz veged!” legyen! 
+
+SW1:
+
+
+	enable
+	clock set 23:00:00 19 mar 2023
+	conf t
+	hostname SW1
+	banner motd #Ha belepsz veged!#
+	logging console
+	service timestamps log datetime msec
+	service timestamps debug datetime msec
+	line vty 0 15
+	password cisco2
+	login
+	exit
+	line console 0
+	password cisco1
+	login
+	exit
+	enable secret cisco3
+	service password-encryption
+
+	
+	int range f0/3-24, g0/2
+	switchport mode access
+	switchport access vlan 99
+	switchport port-security
+	switchport port-security maximum 1
+	switchport port-security violation shut
+	shutdown
+	exit
+	int range f0/1-2, g0/1-2
+	switchport mode access
+	switchport port-security
+	switchport port-security maximum 1
+	switchport port-security mac-address sticky
+	switchport port-security violation shut
+	no sh
+	exit
+	int range f0/2, g0/2
+	switchport access vlan 2
+	no sh
+	exit
+	int range f0/1, g0/1
+	switchport access vlan 3
+	no sh
+	exit
+	do wr
+	interface vlan 3
+	ip address 8.8.8.13 255.255.255.240
+	no shutdown
+	exit
+	interface vlan 2
+	ip address 192.168.0.173 255.255.255.240
+	no shutdown
+	exit
+	do wr
+
+
+
+
+
+
+----------------------------------------------------------------------
+Feladatok:
+- A Sohorouter forgalomirányító LAN felőli IP-címének állítsa be a 172.20.20.1/24 IP-címet! 
+- A P-WIFI vezeték nélküli forgalomirányítót állítsa be DHCP szervernek úgy, hogy az 172.20.18.21 IP-címtől osszon címeket legfeljebb 100 kliens számára! A DNS szerver címe 8.8.8.8legyen!  
+- A P-WIFI vezeték nélküli forgalomirányítón vezeték nélküli hozzáférést is biztosítanak. Állítsa be a vezeték nélküli hálózatot a következőképpen: 
+	a.	Az SSID Lizyko legyen! 
+	b.	A hitelesítés WPA2/PSK segítségével történjen! A kulcs Cisco444 legyen!  
+	c.	Állítson be MAC-cím szűrést, mely csak egyetlen kliens – a P-LT laptop – számára engedélyezi a csatlakozást! 
+
+
+
+SOHO-router
+
+
+
+
+
+
+-----------------------------------------------------------------------
+
+vlanok / portok
+KELL MÉGG VLANOKNAK IP!!
+
+SZ-S1:
+
+	enable
+	clock set 23:00:00 19 mar 2023
+	conf t
+	hostname SZS1
+	banner motd #Belepes csak meghatalmazassal!#
+	login block-for 100 attempts 15 within 180
+	logging console
+	service timestamps log datetime msec
+	service timestamps debug datetime msec
+	line vty 0 15
+	password cisco2
+	login
+	exit
+	line console 0
+	password cisco1
+	login
+	exit
+	enable secret cisco3
+	service password-encryption
+
+	
+	int range f0/3-24, g0/2
+	switchport mode access
+	switchport access vlan 99
+	switchport port-security
+	switchport port-security maximum 1
+	switchport port-security violation shut
+	shutdown
+	exit
+	int range f0/1-2
+	switchport mode access
+	switchport access vlan 10
+	switchport port-security
+	switchport port-security maximum 1
+	switchport port-security mac-address sticky
+	switchport port-security violation shut
+	no sh
+	exit
+	interface Vlan 10
+	ip address 192.168.0.61	255.255.255.192
+	no shutdown
+	do wr
+	vlan 10
+	name 111
+	exit
+	do wr
+
+	
+	
+	
+
+
+-------------------------------------------------------------------
+
+SZ-S2:
+
+	enable
+	clock set 23:00:00 19 mar 2023
+	conf t
+	hostname SZS2
+	banner motd #Belepes csak meghatalmazassal!#
+	login block-for 100 attempts 15 within 180
+	logging console
+	service timestamps log datetime msec
+	service timestamps debug datetime msec
+	line vty 0 15
+	password cisco2
+	login
+	exit
+	line console 0
+	password cisco1
+	login
+	exit
+	enable secret cisco3
+	service password-encryption
+
+	
+	int range f0/3-24, g0/1
+	switchport mode access
+	switchport access vlan 99
+	switchport port-security
+	switchport port-security maximum 1
+	switchport port-security violation shut
+	shutdown
+	exit
+	int range f0/1-2
+	switchport mode access
+	switchport access vlan 20
+	switchport port-security
+	switchport port-security maximum 1
+	switchport port-security mac-address sticky
+	switchport port-security violation shut
+	no sh
+	exit
+	exit
+	interface Vlan 20
+	ip address 192.168.0.125 255.255.255.192
+	no shutdown
+	exit
+	do wr
+	vlan 20
+	name 222
+	exit
+	do wr
+
+
+--------------------------------------------------------------------
+
+
+
+R4:
+
+	enable
+	clock set 23:00:00 19 mar 2023
+	conf t
+	hostname R4
+	banner motd #Belepes csak meghatalmazassal!#
+	login block-for 100 attempts 15 within 180
+	logging console
+	service timestamps log datetime msec
+	service timestamps debug datetime msec
+	line vty 0 15
+	password cisco
+	login
+	exit
+	line console 0
+	password cisco
+	login
+	exit
+	line aux 0
+	password cisco
+	login
+	exit
+	enable secret cisco
+	service password-encryption
+
+	interface s0/0/1
+	ip address 192.168.0.194 255.255.255.252
+	no shutdown
+	exit
+	interface g0/1
+	ip address 192.168.0.198 255.255.255.252
+	no shutdown
+	exit
+	do wr
+
+
+
+-------------------------------------------------------------------------------
+
+P-SW:
+
+	enable
+	clock set 23:00:00 19 mar 2023
+	conf t
+	hostname PSW
+	banner motd #Ha belepsz veged!#
+	logging console
+	service timestamps log datetime msec
+	service timestamps debug datetime msec
+	line vty 0 15
+	password cisco2
+	login
+	exit
+	line console 0
+	password cisco1
+	login
+	exit
+	enable secret cisco3
+	service password-encryption
+
+	
+	int range f0/2-24, g0/2
+	switchport mode access
+	switchport access vlan 99
+	switchport port-security
+	switchport port-security maximum 1
+	switchport port-security violation shut
+	shutdown
+	exit
+	int range f0/1, g0/1
+	switchport mode access
+	switchport access vlan 8
+	switchport port-security
+	switchport port-security maximum 1
+	switchport port-security mac-address sticky
+	switchport port-security violation shut
+	no sh
+	exit
+	interface Vlan 8
+	ip address 192.168.0.181 255.255.255.248
+	no shutdown
+	exit
+	do wr
+
+
+
+
+-------------------------------------------------------------------------------
+
+S-SW:
+
+
+	enable
+	clock set 23:00:00 19 mar 2023
+	conf t
+	hostname SSW
+	banner motd #Ha belepsz veged!#
+	logging console
+	service timestamps log datetime msec
+	service timestamps debug datetime msec
+	line vty 0 15
+	password cisco2
+	login
+	exit
+	line console 0
+	password cisco1
+	login
+	exit
+	enable secret cisco3
+	service password-encryption
+
+	
+	int range f0/2-24
+	switchport mode access
+	switchport access vlan 99
+	switchport port-security
+	switchport port-security maximum 1
+	switchport port-security violation shut
+	shutdown
+	exit
+	int range f0/1, g0/1-2
+	switchport mode access
+	switchport access vlan 9
+	switchport port-security
+	switchport port-security maximum 1
+	switchport port-security mac-address sticky
+	switchport port-security violation shut
+	no sh
+	exit
+	interface Vlan 9
+	ip address 192.168.0.157 255.255.255.224
+	no shutdown
+	exit
+	do wr
+
+
+
+	
+
+
+
+-------------------------------------------------------------------------------------------
+
+
+ROUTING: 
+
+R4:
+ip route 0.0.0.0 0.0.0.0 s0/0/1
+
+
+
+SZ-RT:
+ip route 192.168.0.196 255.255.255.252 s0/1/1
+ip route 8.8.8.0 255.255.255.240 s0/0/0
+ip route 192.168.0.160 255.255.255.240 s0/0/0
+ip route 192.168.0.128 255.255.255.224 s0/0/1
+ip route 192.168.0.176 255.255.255.248 s0/0/1
+ip route 172.20.20.0 255.255.255.0 s0/0/1
+
+
+
+T-RT:
+ip route 172.20.20.0 255.255.255.0 s0/0/0
+ip route 192.168.0.196 255.255.255.252 s0/0/1
+ip route 192.168.0.192 255.255.255.252 s0/0/1
+ip route 192.168.0.176 255.255.255.248 s0/0/0
+ip route 192.168.0.128 255.255.255.224 s0/0/0
+ip route 192.168.0.64 255.255.255.192 s0/0/1
+ip route 192.168.0.0 255.255.255.192 s0/0/1
+
+
+RT1:
+ip route 192.168.0.0 255.255.255.192 s0/0/1
+ip route 192.168.0.64 255.255.255.192 s0/0/1
+ip route 192.168.0.160 255.255.255.240 s0/0/0
+ip route 192.168.0.192 255.255.255.252 s0/0/1
+ip route 192.168.0.196 255.255.255.252 s0/0/1
+ip route 172.20.20.0 255.255.255.0 g0/0
+ip route 8.8.8.0 255.255.255.240 s0/0/0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
